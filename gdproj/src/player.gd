@@ -10,6 +10,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("action1"):
 		pass
 
+
 func _physics_process(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	set_blend_position(input_dir)
