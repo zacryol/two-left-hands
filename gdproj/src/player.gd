@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var _state_machine := _anim_tree.get(&"parameters/playback") as AnimationNodeStateMachinePlayback
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("action1"):
+	if event.is_action_pressed(&"action1"):
 		_state_machine.travel(&"Attack")
 		pass
 
