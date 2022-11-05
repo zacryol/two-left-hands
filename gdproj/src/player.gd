@@ -13,7 +13,7 @@ var Knife := preload("res://src/knife.tscn") as PackedScene
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"action1"):
 		_state_machine.travel(&"Attack")
-	elif event.is_action_pressed(&"action2") and\
+	elif event.is_action_pressed(&"action2") and \
 			_state_machine.get_current_node() == &"Standard":
 		_throw_knife()
 
@@ -37,6 +37,7 @@ func set_blend_position(pos: Vector2) -> void:
 	if pos.length_squared() > 0.1:
 		_anim_tree.set(&"parameters/Attack/dir/blend_position", pos)
 
+
 ## Returns the direction to attack in, determined by the Attack blend position
 ## in the Animation Tree
 func get_attack_dir() -> Vector2:
@@ -44,7 +45,7 @@ func get_attack_dir() -> Vector2:
 
 
 func _throw_knife() -> void:
-	var knife := Knife.instantiate() as Node2D
+	var knife := Knife.instantiate() as Knife
 	(owner if owner else get_parent()).add_child(knife)
 	var knife_dir := get_attack_dir()
 	knife.global_position = global_position

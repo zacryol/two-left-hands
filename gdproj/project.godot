@@ -9,12 +9,18 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Area2D",
+"class": &"Knife",
+"language": &"GDScript",
+"path": "res://src/knife.gd"
+}, {
 "base": "CharacterBody2D",
 "class": &"Player",
 "language": &"GDScript",
 "path": "res://src/player.gd"
 }]
 _global_script_class_icons={
+"Knife": "",
 "Player": ""
 }
 
