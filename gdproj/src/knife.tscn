@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3ruxs0rrylgt"]
+
+[ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="1_c07jh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_butgl"]
+radius = 2.0
+height = 10.0
+
+[node name="Knife" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(6.5, 0)
+rotation = 1.5708
+texture = ExtResource("1_c07jh")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(117, 129.819, 6, 13.1805)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_butgl")
