@@ -16,6 +16,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(&"action2") and \
 			_state_machine.get_current_node() == &"Standard":
 		_throw_knife()
+	elif event.is_action_pressed(&"action3"):
+		_state_machine.travel(&"AxeAttack")
 
 
 func _physics_process(_delta: float) -> void:
@@ -36,6 +38,7 @@ func set_blend_position(pos: Vector2) -> void:
 	_anim_tree.set(&"parameters/Standard/blend_position", pos)
 	if pos.length_squared() > 0.1:
 		_anim_tree.set(&"parameters/Attack/dir/blend_position", pos)
+		_anim_tree.set(&"parameters/AxeAttack/dir/blend_position", pos)
 
 
 ## Returns the direction to attack in, determined by the Attack blend position
