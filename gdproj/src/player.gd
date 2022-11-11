@@ -2,7 +2,7 @@
 class_name Player
 extends CharacterBody2D
 
-var Knife := preload("res://src/knife.tscn") as PackedScene
+var KnifeScene := preload("res://src/knife.tscn") as PackedScene
 
 ## Movement Speed.
 @export var speed: float = 150.0
@@ -48,7 +48,7 @@ func get_attack_dir() -> Vector2:
 
 
 func _throw_knife() -> void:
-	var knife := Knife.instantiate() as Knife
+	var knife := KnifeScene.instantiate() as Knife
 	(owner if owner else get_parent()).add_child(knife)
 	var knife_dir := get_attack_dir()
 	knife.global_position = global_position
