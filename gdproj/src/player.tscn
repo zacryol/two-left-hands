@@ -549,6 +549,7 @@ height = 16.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
+collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_1rc78")
 
@@ -594,6 +595,8 @@ region_rect = Rect2(132, 128, 8, 16)
 
 [node name="Area2D" type="Area2D" parent="Sword"]
 position = Vector2(17, 0)
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Area2D"]
 rotation = -1.5708
@@ -613,6 +616,8 @@ region_rect = Rect2(160, 143, 16.3725, 17.497)
 
 [node name="Area2D" type="Area2D" parent="Axe"]
 position = Vector2(17, 0)
+collision_layer = 8
+collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe/Area2D"]

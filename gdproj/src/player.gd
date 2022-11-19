@@ -32,6 +32,11 @@ func _physics_process(_delta: float) -> void:
 			pass
 
 
+func hit() -> void:
+	# TODO
+	pass
+
+
 ## Sets the blend position used for various animations.
 ## The movement direction is set, and if the vector is not Zero, attack dir is set
 func set_blend_position(pos: Vector2) -> void:
