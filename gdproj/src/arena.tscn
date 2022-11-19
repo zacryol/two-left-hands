@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccxg3rjv5xs45"]
+[gd_scene load_steps=7 format=3 uid="uid://ccxg3rjv5xs45"]
 
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="1_q3v5v"]
 [ext_resource type="PackedScene" uid="uid://4j24wpaqpdm" path="res://src/player.tscn" id="2_r3ps1"]
+[ext_resource type="Script" path="res://src/spawner.gd" id="3_iiy8y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4jall"]
 texture = ExtResource("1_q3v5v")
@@ -676,6 +677,12 @@ terrain_set_1/terrain_0/name = "Walls 0"
 terrain_set_1/terrain_0/color = Color(0.47451, 0.490196, 0.501961, 1)
 sources/0 = SubResource("TileSetAtlasSource_4jall")
 
+[sub_resource type="Curve2D" id="Curve2D_53ffl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, -16, 0, 0, 0, 0, 656, -16, 0, 0, 0, 0, 656, 376, 0, 0, 0, 0, -16, 384, 0, 0, 0, 0, -16, -16)
+}
+point_count = 5
+
 [node name="Arena" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -694,3 +701,10 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("2_r3ps1")]
 position = Vector2(309, 176)
+
+[node name="SpawnerPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_53ffl")
+
+[node name="Spawner" type="PathFollow2D" parent="SpawnerPath"]
+position = Vector2(-16, -16)
+script = ExtResource("3_iiy8y")

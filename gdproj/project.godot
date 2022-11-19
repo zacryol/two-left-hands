@@ -10,6 +10,16 @@ config_version=5
 
 _global_script_classes=[{
 "base": "Area2D",
+"class": &"Enemy",
+"language": &"GDScript",
+"path": "res://src/enemy.gd"
+}, {
+"base": "PathFollow2D",
+"class": &"EnemySpawner",
+"language": &"GDScript",
+"path": "res://src/spawner.gd"
+}, {
+"base": "Area2D",
 "class": &"Knife",
 "language": &"GDScript",
 "path": "res://src/knife.gd"
@@ -20,6 +30,8 @@ _global_script_classes=[{
 "path": "res://src/player.gd"
 }]
 _global_script_class_icons={
+"Enemy": "",
+"EnemySpawner": "",
 "Knife": "",
 "Player": ""
 }
