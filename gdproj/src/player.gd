@@ -9,6 +9,9 @@ var KnifeScene := preload("res://src/knife.tscn") as PackedScene
 
 @onready var _anim_tree := $AnimationTree as AnimationTree
 @onready var _state_machine := _anim_tree.get(&"parameters/playback") as AnimationNodeStateMachinePlayback
+@onready var iframes := $InvulnTimer as Timer
+@onready var hitbox := $CollisionShape2D as CollisionShape2D
+@onready var sprite := $Sprite2D as Sprite2D
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"action1"):
@@ -33,8 +36,12 @@ func _physics_process(_delta: float) -> void:
 
 
 func hit() -> void:
-	# TODO
-	pass
+	if not iframes.is_stopped(): return
+	#print("ouch")
+	#print(Engine.get_physics_frames())
+	hitbox.set_deferred(&"disabled", true)
+	sprite.self_modulate.a8 = 128
+	iframes.start()
 
 
 ## Sets the blend position used for various animations.
@@ -58,3 +65,8 @@ func _throw_knife() -> void:
 	var knife_dir := get_attack_dir()
 	knife.global_position = global_position
 	knife.global_rotation = knife_dir.angle()
+
+
+func _on_invuln_timer_timeout() -> void:
+	hitbox.set_deferred(&"disabled", false)
+	sprite.self_modulate.a8 = 255
