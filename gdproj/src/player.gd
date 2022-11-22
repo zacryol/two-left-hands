@@ -6,6 +6,9 @@ var KnifeScene := preload("res://src/knife.tscn") as PackedScene
 
 ## Movement Speed.
 @export var speed: float = 150.0
+## Dash Speed.
+@export var dash_speed: float = 500.0
+var _dash_dir := Vector2.RIGHT
 
 @onready var _anim_tree := $AnimationTree as AnimationTree
 @onready var _state_machine := _anim_tree.get(&"parameters/playback") as AnimationNodeStateMachinePlayback
@@ -21,9 +24,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		_throw_knife()
 	elif event.is_action_pressed(&"action3"):
 		_state_machine.travel(&"AxeAttack")
+	elif event.is_action_pressed(&"dash"):
+		_state_machine.travel(&"dash")
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	match _state_machine.get_current_node():
 		&"Standard":
 			var input_dir := Input.get_vector(&"move_left", &"move_right",
@@ -31,12 +36,16 @@ func _physics_process(_delta: float) -> void:
 			set_blend_position(input_dir)
 			velocity = input_dir * speed
 			var _r := move_and_slide()
+		&"dash":
+			var move := _dash_dir * dash_speed * delta
+			var _c := move_and_collide(move)
 		_:
 			pass
 
 
 func hit() -> void:
 	if not iframes.is_stopped(): return
+	if _state_machine.get_current_node() == &"dash": return
 	#print("ouch")
 	#print(Engine.get_physics_frames())
 	hitbox.set_deferred(&"disabled", true)
@@ -51,6 +60,7 @@ func set_blend_position(pos: Vector2) -> void:
 	if pos.length_squared() > 0.1:
 		_anim_tree.set(&"parameters/Attack/dir/blend_position", pos)
 		_anim_tree.set(&"parameters/AxeAttack/dir/blend_position", pos)
+		_dash_dir = pos.normalized()
 
 
 ## Returns the direction to attack in, determined by the Attack blend position

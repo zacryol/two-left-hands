@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://4j24wpaqpdm"]
+[gd_scene load_steps=55 format=3 uid="uid://4j24wpaqpdm"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_1rc78"]
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="2_b0yg7"]
@@ -103,6 +103,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_fvsus"]
@@ -388,6 +400,23 @@ tracks/0/keys = {
 "values": [3.92699, 5.49779]
 }
 
+[sub_resource type="Animation" id="Animation_81f1i"]
+resource_name = "dash"
+length = 0.21
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.18, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0.6), Color(0, 0, 0, 0.6), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d66mu"]
 _data = {
 "RESET": SubResource("Animation_w4sym"),
@@ -397,6 +426,7 @@ _data = {
 "axe_swing_left": SubResource("Animation_tyway"),
 "axe_swing_right": SubResource("Animation_euk83"),
 "axe_swing_up": SubResource("Animation_re0ji"),
+"dash": SubResource("Animation_81f1i"),
 "idle": SubResource("Animation_17q46"),
 "move_left": SubResource("Animation_uuij1"),
 "move_right": SubResource("Animation_sb0ir"),
@@ -515,6 +545,9 @@ blend_point_3/pos = Vector2(-1, 0)
 blend_point_4/node = SubResource("AnimationNodeAnimation_otwcr")
 blend_point_4/pos = Vector2(0, 0)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_av5an"]
+animation = &"dash"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gessv"]
 auto_advance = true
 
@@ -530,6 +563,12 @@ auto_advance = true
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_snyix"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ji51q"]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iqxnw"]
 states/Attack/node = SubResource("AnimationNodeBlendTree_mw1fj")
 states/Attack/position = Vector2(697, 61)
@@ -537,7 +576,9 @@ states/AxeAttack/node = SubResource("AnimationNodeBlendTree_fwirh")
 states/AxeAttack/position = Vector2(697, 173)
 states/Standard/node = SubResource("AnimationNodeBlendSpace2D_jjpb5")
 states/Standard/position = Vector2(525, 100)
-transitions = ["Start", "Standard", SubResource("AnimationNodeStateMachineTransition_gessv"), "Standard", "Attack", SubResource("AnimationNodeStateMachineTransition_4i1bd"), "Attack", "Standard", SubResource("AnimationNodeStateMachineTransition_08k5r"), "Standard", "AxeAttack", SubResource("AnimationNodeStateMachineTransition_h0d57"), "AxeAttack", "Standard", SubResource("AnimationNodeStateMachineTransition_67p5y")]
+states/dash/node = SubResource("AnimationNodeAnimation_av5an")
+states/dash/position = Vector2(449, 248)
+transitions = ["Start", "Standard", SubResource("AnimationNodeStateMachineTransition_gessv"), "Standard", "Attack", SubResource("AnimationNodeStateMachineTransition_4i1bd"), "Attack", "Standard", SubResource("AnimationNodeStateMachineTransition_08k5r"), "Standard", "AxeAttack", SubResource("AnimationNodeStateMachineTransition_h0d57"), "AxeAttack", "Standard", SubResource("AnimationNodeStateMachineTransition_67p5y"), "Standard", "dash", SubResource("AnimationNodeStateMachineTransition_snyix"), "dash", "Standard", SubResource("AnimationNodeStateMachineTransition_ji51q")]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xixy8"]
 
