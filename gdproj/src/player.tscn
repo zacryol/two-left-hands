@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://4j24wpaqpdm"]
+[gd_scene load_steps=60 format=3 uid="uid://4j24wpaqpdm"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_1rc78"]
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="2_b0yg7"]
@@ -601,6 +601,9 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucfo"]
 bg_color = Color(0.6, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xbqo"]
+bg_color = Color(0.0823529, 0, 0.6, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_oolao"]
 radius = 6.0
 
@@ -703,6 +706,24 @@ theme_override_styles/background = SubResource("StyleBoxFlat_xusca")
 theme_override_styles/fill = SubResource("StyleBoxFlat_uucfo")
 value = 100.0
 show_percentage = false
+
+[node name="MagicBar" type="ProgressBar" parent="UI"]
+offset_left = 11.0
+offset_top = 27.0
+offset_right = 213.0
+offset_bottom = 34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xusca")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0xbqo")
+value = 100.0
+show_percentage = false
+
+[node name="MGEffect" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0509804, 0, 0.662745, 0)
 
 [node name="PotionGrabber" type="Area2D" parent="."]
 collision_layer = 32

@@ -19,6 +19,8 @@ var _dash_dir := Vector2.RIGHT
 @onready var sprite := $Sprite2D as Sprite2D
 @onready var health_bar := $UI/HealthBar as ProgressBar
 @onready var potion_grabber := $PotionGrabber as Area2D
+@onready var magic := $UI/MagicBar as ProgressBar
+@onready var mg_effect := $UI/MGEffect as ColorRect
 
 var _max_hp := 100
 var _hp := _max_hp:
@@ -44,8 +46,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_state_machine.travel(&"AxeAttack")
 	elif event.is_action_pressed(&"dash"):
 		_state_machine.travel(&"dash")
-	elif event.is_action_pressed(&"action4"):
-		pass
+	elif event.is_action_pressed(&"action4") and magic.value == magic.max_value:
+		mg_effect.color.a8 = 128
+		for e in get_tree().get_nodes_in_group(&"enemy"):
+			var enemy := e as Enemy
+			if not enemy: continue
+			enemy.die()
+		magic.value = 0
 	elif event.is_action_pressed(&"action5"):
 		for a in potion_grabber.get_overlapping_areas():
 			if not a.is_in_group(&"potion"):
@@ -56,6 +63,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	magic.value += 5 * delta
+	mg_effect.color.a = maxf(0.0, mg_effect.color.a - delta)
 	match _state_machine.get_current_node():
 		&"Standard":
 			var input_dir := Input.get_vector(&"move_left", &"move_right",
