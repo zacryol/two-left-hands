@@ -19,8 +19,14 @@ func _process(delta: float) -> void:
 
 ## Spawn enemy at random point along path
 func spawn_enemy() -> void:
+	spawn_rate += 1
 	progress_ratio = randf()
 	var enemy := EnemyScene.instantiate() as Enemy
 	enemy.aggression = randf() * randf()
 	(owner if owner else get_parent()).add_child(enemy)
 	enemy.global_position = global_position
+	var _err := enemy.died.connect(Callable(self, &"_enemy_died"))
+
+
+func _enemy_died():
+	spawn_rate += 1
