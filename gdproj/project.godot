@@ -111,3 +111,5 @@ action5={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Walls"
 2d_physics/layer_4="Attack"
+2d_physics/layer_5="Potion"
+2d_physics/layer_6="PotionGrabber"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://4j24wpaqpdm"]
+[gd_scene load_steps=59 format=3 uid="uid://4j24wpaqpdm"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_1rc78"]
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="2_b0yg7"]
@@ -601,6 +601,9 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucfo"]
 bg_color = Color(0.6, 0, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_oolao"]
+radius = 6.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 collision_mask = 6
@@ -700,6 +703,14 @@ theme_override_styles/background = SubResource("StyleBoxFlat_xusca")
 theme_override_styles/fill = SubResource("StyleBoxFlat_uucfo")
 value = 100.0
 show_percentage = false
+
+[node name="PotionGrabber" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PotionGrabber"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_oolao")
 
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_invuln_timer_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

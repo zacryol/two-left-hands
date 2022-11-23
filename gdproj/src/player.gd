@@ -18,11 +18,12 @@ var _dash_dir := Vector2.RIGHT
 @onready var hurtbox := $Hurtbox/CollisionShape2D as CollisionShape2D
 @onready var sprite := $Sprite2D as Sprite2D
 @onready var health_bar := $UI/HealthBar as ProgressBar
+@onready var potion_grabber := $PotionGrabber as Area2D
 
 var _max_hp := 100
 var _hp := _max_hp:
 	set(new_hp):
-		_hp = new_hp
+		_hp = mini(new_hp, _max_hp)
 		health_bar.value = new_hp
 		if _hp <= 0:
 			die()
@@ -43,6 +44,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_state_machine.travel(&"AxeAttack")
 	elif event.is_action_pressed(&"dash"):
 		_state_machine.travel(&"dash")
+	elif event.is_action_pressed(&"action4"):
+		pass
+	elif event.is_action_pressed(&"action5"):
+		for a in potion_grabber.get_overlapping_areas():
+			if not a.is_in_group(&"potion"):
+				continue
+			_hp = _max_hp
+			a.queue_free()
+			break
 
 
 func _physics_process(delta: float) -> void:
