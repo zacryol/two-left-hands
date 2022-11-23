@@ -13,7 +13,7 @@ var _dash_dir := Vector2.RIGHT
 @onready var _anim_tree := $AnimationTree as AnimationTree
 @onready var _state_machine := _anim_tree.get(&"parameters/playback") as AnimationNodeStateMachinePlayback
 @onready var iframes := $InvulnTimer as Timer
-@onready var hitbox := $CollisionShape2D as CollisionShape2D
+@onready var hurtbox := $Hurtbox/CollisionShape2D as CollisionShape2D
 @onready var sprite := $Sprite2D as Sprite2D
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -48,7 +48,7 @@ func hit() -> void:
 	if _state_machine.get_current_node() == &"dash": return
 	#print("ouch")
 	#print(Engine.get_physics_frames())
-	hitbox.set_deferred(&"disabled", true)
+	hurtbox.set_deferred(&"disabled", true)
 	sprite.self_modulate.a8 = 128
 	iframes.start()
 
@@ -78,5 +78,10 @@ func _throw_knife() -> void:
 
 
 func _on_invuln_timer_timeout() -> void:
-	hitbox.set_deferred(&"disabled", false)
+	hurtbox.set_deferred(&"disabled", false)
 	sprite.self_modulate.a8 = 255
+
+
+func _on_hurtbox_area_entered(area: Enemy) -> void:
+	if not area: return
+	hit()
