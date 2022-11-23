@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://4j24wpaqpdm"]
+[gd_scene load_steps=58 format=3 uid="uid://4j24wpaqpdm"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_1rc78"]
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="2_b0yg7"]
@@ -591,6 +591,16 @@ height = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hfttt"]
 radius = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xusca"]
+bg_color = Color(0, 0, 0, 0.721569)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucfo"]
+bg_color = Color(0.6, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 collision_mask = 6
@@ -678,6 +688,18 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_hfttt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+offset_left = 11.0
+offset_top = 13.0
+offset_right = 224.0
+offset_bottom = 23.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xusca")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uucfo")
+value = 100.0
+show_percentage = false
 
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_invuln_timer_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

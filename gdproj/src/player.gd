@@ -15,6 +15,19 @@ var _dash_dir := Vector2.RIGHT
 @onready var iframes := $InvulnTimer as Timer
 @onready var hurtbox := $Hurtbox/CollisionShape2D as CollisionShape2D
 @onready var sprite := $Sprite2D as Sprite2D
+@onready var health_bar := $UI/HealthBar as ProgressBar
+
+var _max_hp := 100
+var _hp := _max_hp:
+	set(new_hp):
+		_hp = new_hp
+		health_bar.value = new_hp
+
+func _ready() -> void:
+	health_bar.max_value = _max_hp
+	health_bar.min_value = 0
+	health_bar.value = _hp
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"action1"):
@@ -51,6 +64,7 @@ func hit() -> void:
 	hurtbox.set_deferred(&"disabled", true)
 	sprite.self_modulate.a8 = 128
 	iframes.start()
+	_hp -= 1
 
 
 ## Sets the blend position used for various animations.
