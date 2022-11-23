@@ -1,0 +1,11 @@
+itch_account_name = "zacryol"
+itch_game = "https://zacryol.itch.io/two-left-hands"
+base_dir = "export"
+version.type = "git"
+
+[channels.windows]
+
+[channels.linux]
+
+[channels.web]
+
