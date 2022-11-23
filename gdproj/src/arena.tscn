@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccxg3rjv5xs45"]
+[gd_scene load_steps=11 format=3 uid="uid://ccxg3rjv5xs45"]
 
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="1_q3v5v"]
 [ext_resource type="PackedScene" uid="uid://4j24wpaqpdm" path="res://src/player.tscn" id="2_r3ps1"]
 [ext_resource type="Script" path="res://src/spawner.gd" id="3_iiy8y"]
+[ext_resource type="Script" path="res://src/dead_screen.gd" id="4_rgjed"]
+[ext_resource type="FontFile" uid="uid://cf3wlomlh7ujc" path="res://assets/Kenney Mini.ttf" id="4_s8vas"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4jall"]
 texture = ExtResource("1_q3v5v")
@@ -683,6 +685,14 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="Theme" id="Theme_3a6s2"]
+default_font = ExtResource("4_s8vas")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pd6ui"]
+font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Arena" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -708,3 +718,66 @@ curve = SubResource("Curve2D_53ffl")
 [node name="Spawner" type="PathFollow2D" parent="SpawnerPath"]
 position = Vector2(-16, -16)
 script = ExtResource("3_iiy8y")
+
+[node name="DeadScreen" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("4_rgjed")
+
+[node name="ColorRect" type="ColorRect" parent="DeadScreen"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3a6s2")
+color = Color(0, 0, 0, 0.627451)
+
+[node name="Label" type="Label" parent="DeadScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -116.0
+offset_right = 88.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_pd6ui")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeadScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -30.0
+offset_right = 43.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RetryButton" type="Button" parent="DeadScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
+offset_right = 86.0
+offset_bottom = 28.0
+text = "Try Again"
+
+[node name="Quit" type="Button" parent="DeadScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
+offset_top = 32.0
+offset_right = 86.0
+offset_bottom = 60.0
+text = "Quit Game"
+
+[connection signal="died" from="Player" to="DeadScreen" method="_on_player_died"]
+[connection signal="pressed" from="DeadScreen/ColorRect/VBoxContainer/RetryButton" to="DeadScreen" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="DeadScreen/ColorRect/VBoxContainer/Quit" to="DeadScreen" method="_on_quit_pressed"]

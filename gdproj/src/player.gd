@@ -2,6 +2,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal died
+
 var KnifeScene := preload("res://src/knife.tscn") as PackedScene
 
 ## Movement Speed.
@@ -22,6 +24,8 @@ var _hp := _max_hp:
 	set(new_hp):
 		_hp = new_hp
 		health_bar.value = new_hp
+		if _hp <= 0:
+			die()
 
 func _ready() -> void:
 	health_bar.max_value = _max_hp
@@ -54,6 +58,10 @@ func _physics_process(delta: float) -> void:
 			var _c := move_and_collide(move)
 		_:
 			pass
+
+
+func die() -> void:
+	died.emit()
 
 
 func hit() -> void:
