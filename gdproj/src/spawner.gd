@@ -12,6 +12,7 @@ func _init() -> void:
 	randomize()
 
 func _process(delta: float) -> void:
+	spawn_rate = minf(spawn_rate, 6000.0)
 	_spawn_tick += spawn_rate * delta
 	while _spawn_tick > _SPAWN_THRESHOLD:
 		_spawn_tick -= _SPAWN_THRESHOLD
@@ -26,7 +27,7 @@ func spawn_enemy() -> void:
 	(owner if owner else get_parent()).add_child(enemy)
 	enemy.global_position = global_position
 	var _err := enemy.died.connect(Callable(self, &"_enemy_died"))
-	if randf() < 5.0 / spawn_rate:
+	if randf() < 2.0 / spawn_rate:
 		enemy.has_potion = true
 
 

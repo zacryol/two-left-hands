@@ -84,8 +84,8 @@ func die() -> void:
 
 
 func hit() -> void:
-	if not iframes.is_stopped(): return
-	if _state_machine.get_current_node() == &"dash": return
+	#if not iframes.is_stopped(): return
+	#if _state_machine.get_current_node() == &"dash": return
 	#print("ouch")
 	#print(Engine.get_physics_frames())
 	hurtbox.set_deferred(&"disabled", true)
