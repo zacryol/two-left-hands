@@ -736,6 +736,7 @@ theme = SubResource("Theme_3a6s2")
 color = Color(0, 0, 0, 0.627451)
 
 [node name="Label" type="Label" parent="DeadScreen/ColorRect"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -751,6 +752,7 @@ text = "Game Over"
 label_settings = SubResource("LabelSettings_pd6ui")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DeadScreen/ColorRect"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -764,11 +766,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RetryButton" type="Button" parent="DeadScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
 offset_right = 86.0
 offset_bottom = 28.0
 text = "Try Again"
 
 [node name="Quit" type="Button" parent="DeadScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
 offset_top = 32.0
 offset_right = 86.0
 offset_bottom = 60.0

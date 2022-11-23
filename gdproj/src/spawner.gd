@@ -14,7 +14,8 @@ func _init() -> void:
 func _process(delta: float) -> void:
 	spawn_rate = minf(spawn_rate, 6000.0)
 	_spawn_tick += spawn_rate * delta
-	while _spawn_tick > _SPAWN_THRESHOLD:
+	while _spawn_tick > _SPAWN_THRESHOLD and\
+			get_tree().get_nodes_in_group(&"enemy").size() < 500:
 		_spawn_tick -= _SPAWN_THRESHOLD
 		spawn_enemy()
 
