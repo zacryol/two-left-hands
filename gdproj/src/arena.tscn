@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccxg3rjv5xs45"]
+[gd_scene load_steps=12 format=3 uid="uid://ccxg3rjv5xs45"]
 
 [ext_resource type="Texture2D" uid="uid://kndfi6y82n38" path="res://assets/sprites/tilemap_packed.png" id="1_q3v5v"]
 [ext_resource type="PackedScene" uid="uid://4j24wpaqpdm" path="res://src/player.tscn" id="2_r3ps1"]
@@ -685,6 +685,11 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_rlvj2"]
+font = ExtResource("4_s8vas")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="Theme" id="Theme_3a6s2"]
 default_font = ExtResource("4_s8vas")
 
@@ -718,6 +723,18 @@ curve = SubResource("Curve2D_53ffl")
 [node name="Spawner" type="PathFollow2D" parent="SpawnerPath"]
 position = Vector2(-16, -16)
 script = ExtResource("3_iiy8y")
+
+[node name="Score" type="CanvasLayer" parent="SpawnerPath/Spawner"]
+layer = 4
+
+[node name="Label" type="Label" parent="SpawnerPath/Spawner/Score"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+label_settings = SubResource("LabelSettings_rlvj2")
 
 [node name="DeadScreen" type="CanvasLayer" parent="."]
 process_mode = 3

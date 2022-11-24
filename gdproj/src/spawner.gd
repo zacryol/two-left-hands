@@ -4,6 +4,8 @@ extends PathFollow2D
 const _SPAWN_THRESHOLD := 100.0
 var spawn_rate := 20.0
 
+@onready var score_label := $Score/Label as Label
+
 var EnemyScene = preload("res://src/enemy.tscn") as PackedScene
 
 var _spawn_tick := 0.0
@@ -16,6 +18,7 @@ func _init() -> void:
 
 
 func _process(delta: float) -> void:
+	score_label.text = "Score: %d" % _enemies_spawned
 	spawn_rate = minf(spawn_rate, 6000.0)
 	_spawn_tick += spawn_rate * delta
 	while _spawn_tick > _SPAWN_THRESHOLD and\
