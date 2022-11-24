@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var again_button := $ColorRect/VBoxContainer/RetryButton as Button
 @onready var qbutton := $ColorRect/VBoxContainer/Quit as Button
 
 func _ready() -> void:
@@ -9,6 +10,7 @@ func _ready() -> void:
 
 func _on_player_died() -> void:
 	show()
+	again_button.grab_focus()
 	get_tree().paused = true
 
 

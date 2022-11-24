@@ -2,7 +2,7 @@ class_name EnemySpawner
 extends PathFollow2D
 
 const _SPAWN_THRESHOLD := 100.0
-var spawn_rate := 200.0
+var spawn_rate := 20.0
 
 var EnemyScene = preload("res://src/enemy.tscn") as PackedScene
 
